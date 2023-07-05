@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Петр Кравченко](https://up.htmlacademy.ru/react/13/user/2071141).
-* Наставник: `Неизвестно`.
+- Студент: [Петр Кравченко](https://up.htmlacademy.ru/react/13/user/2071141).
+- Наставник: [Павел Севостьянов](https://htmlacademy.ru/profile/pavel).
 
 ---
 
