@@ -21,25 +21,12 @@ function App({ offersCount }: AppProps): JSX.Element {
             path={AppRoute.Root}
             element={<MainPage offersCount={offersCount} />}
           />
+          <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                restrictedFor={AuthorizationStatus.NoAuth}
-                redirectTo={AppRoute.Login}
-              >
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
                 <FavoritesPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Login}
-            element={
-              <PrivateRoute
-                restrictedFor={AuthorizationStatus.Auth}
-                redirectTo={AppRoute.Root}
-              >
-                <LoginPage />
               </PrivateRoute>
             }
           />
