@@ -118,7 +118,7 @@ function OfferPage(): JSX.Element {
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
-                <h2 className="offer__inside-title">What's inside</h2>
+                <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
                   <li className="offer__inside-item">Wi-Fi</li>
                   <li className="offer__inside-item">Washing machine</li>
@@ -302,7 +302,7 @@ function OfferPage(): JSX.Element {
                     <button
                       className="reviews__submit form__submit button"
                       type="submit"
-                      disabled=""
+                      disabled
                     >
                       Submit
                     </button>

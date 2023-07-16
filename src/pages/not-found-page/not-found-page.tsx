@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { AppRoute } from '../../const';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -19,7 +21,10 @@ function NotFoundPage(): JSX.Element {
                 <b className="cities__status">404 </b>
                 <p className="cities__status">Not Found </p>
                 <p className="cities__status-description">
-                  The resourse requested could not be found on this server!
+                  <Link to={AppRoute.Root}>
+                    The resourse requested could not be found on this server! Go
+                    to the homepage
+                  </Link>
                 </p>
               </div>
             </section>
