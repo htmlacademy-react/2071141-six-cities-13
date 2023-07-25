@@ -28,7 +28,7 @@ export type Offers = {
   previewImage: string;
 };
 
-type OfferDescription = {
+type OfferInfo = {
   description: string;
   bedrooms: number;
   goods: string[];
@@ -37,4 +37,4 @@ type OfferDescription = {
   maxAdults: number;
 };
 
-export type OfferCard = Offers | OfferDescription;
+export type Offer = Offers | OfferInfo;

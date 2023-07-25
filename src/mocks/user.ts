@@ -1,4 +1,4 @@
-import { User } from '../../types.ts/comment';
+import { User } from '../types/comment';
 
 export const user: User[] = [
   {
