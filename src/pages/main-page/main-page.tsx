@@ -1,4 +1,4 @@
-import Card from '../../components/card/card';
+import CardList from '../../components/card-list/card-list';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import UserInfo from '../../components/user-info/user-info';
@@ -91,11 +91,7 @@ function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => (
-                  <Card key={offer.id} offer={offer} />
-                ))}
-              </div>
+              <CardList offers={offers} />
             </section>
             <Map />
           </div>

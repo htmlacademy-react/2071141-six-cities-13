@@ -17,7 +17,7 @@ function Card({ offer }: cardProps): JSX.Element {
             src={offer.previewImage}
             width={260}
             height={200}
-            alt="Place image"
+            alt={offer.type}
           />
         </a>
       </div>
