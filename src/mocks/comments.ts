@@ -1,13 +1,5 @@
 import { Comment } from '../types/comment';
 
-const user: User = [
-  {
-    name: 'Oliver Conner',
-    avatarUrl: 'https://url-to-image/image.png',
-    isPro: false,
-  },
-];
-
 export const comments: Comment[] = [
   {
     id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
