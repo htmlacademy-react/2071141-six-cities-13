@@ -5,7 +5,7 @@ type CardListProps = {
   offers: Offers[];
 };
 
-export default function CardList({ offers }: CardListProps): JSX.Element {
+function CardList({ offers }: CardListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
@@ -14,3 +14,5 @@ export default function CardList({ offers }: CardListProps): JSX.Element {
     </div>
   );
 }
+
+export default CardList;

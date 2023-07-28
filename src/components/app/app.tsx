@@ -27,12 +27,15 @@ function App({ offersCount, offers }: AppProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage />
-              </PrivateRoute>
+              //  <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <FavoritesPage offers={offers} />
+              //  </PrivateRoute>
             }
           />
-          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
+          <Route
+            path={`${AppRoute.Offer}/:offerId`}
+            element={<OfferPage offers={offers} />}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <div></div>
