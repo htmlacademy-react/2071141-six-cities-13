@@ -10,26 +10,22 @@ import PrivateRoute from '../private-route/private-route';
 import { Offers } from '../../types/offer';
 
 type AppProps = {
-  offersCount: number;
   offers: Offers[];
 };
 
-function App({ offersCount, offers }: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<MainPage offersCount={offersCount} offers={offers} />}
-          />
+          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}
             element={
-              //  <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage offers={offers} />
-              //  </PrivateRoute>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesPage offers={offers} />
+              </PrivateRoute>
             }
           />
           <Route
@@ -38,7 +34,6 @@ function App({ offersCount, offers }: AppProps): JSX.Element {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <div></div>
       </BrowserRouter>
     </HelmetProvider>
   );
