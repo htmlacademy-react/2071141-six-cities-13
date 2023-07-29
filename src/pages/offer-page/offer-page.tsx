@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Card from '../../components/card/card';
 import Logo from '../../components/logo/logo';
 import ReviewForm from '../../components/review-form/review-form';
@@ -10,6 +11,8 @@ type OfferPageProps = {
 };
 
 function OfferPage({ offers }: OfferPageProps): JSX.Element {
+  const [, setActiveCard] = useState('');
+
   return (
     <div className="page">
       <header className="header">
@@ -162,7 +165,12 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
             </h2>
             <div className="near-places__list places__list">
               {offers.map((offer) => (
-                <Card key={offer.id} offer={offer} />
+                <Card
+                  key={offer.id}
+                  offer={offer}
+                  onCardHover={() => setActiveCard(offer.id)}
+                  onCardLeave={() => setActiveCard('')}
+                />
               ))}
             </div>
           </section>
