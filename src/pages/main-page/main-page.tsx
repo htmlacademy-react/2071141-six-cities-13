@@ -5,11 +5,10 @@ import UserInfo from '../../components/user-info/user-info';
 import { Offers } from '../../types/offer';
 
 type MainPageProps = {
-  offersCount: number;
   offers: Offers[];
 };
 
-function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">

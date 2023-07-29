@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offers } from '../../types/offer';
 
-type cardProps = {
+type CardProps = {
   offer: Offers;
   onCardHover: () => void;
   onCardLeave: () => void;
 };
 
-function Card({ offer, onCardHover, onCardLeave }: cardProps): JSX.Element {
+function Card({ offer, onCardHover, onCardLeave }: CardProps): JSX.Element {
   const { title, type, price, previewImage, isPremium, rating } = offer;
 
   return (
