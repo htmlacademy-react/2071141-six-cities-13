@@ -7,18 +7,22 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks/index';
 
 type AppProps = {
-  offers: Offers[];
+  cities: string[];
 };
 
-function App({ offers }: AppProps): JSX.Element {
+function App({ cities }: AppProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+          <Route
+            path={AppRoute.Root}
+            element={<MainPage offers={offers} cities={cities} />}
+          />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}
