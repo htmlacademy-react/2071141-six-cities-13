@@ -3,23 +3,23 @@ import { offers } from '../mocks/offers';
 import { Offers } from '../types/offer';
 import { changeCity, loadOffers } from './action';
 
-type InitialState = {
-  currentCity: string | undefined;
+type InitialStateType = {
+  city: string;
   offers: Offers[];
 };
 
-const initialState: InitialState = {
-  currentCity: 'Paris',
+const initialState: InitialStateType = {
+  city: 'Paris',
   offers: offers,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
-      state.currentCity = action.payload;
+      state.city = action.payload.city;
     })
-    .addCase(loadOffers, (state) => {
-      state.offers = offers;
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload.offers;
     });
 });
 

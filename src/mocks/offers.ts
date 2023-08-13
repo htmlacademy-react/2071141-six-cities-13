@@ -25,7 +25,7 @@ export const offers: Offers[] = [
     rating: 1.8,
   },
   {
-    id: '4157daa8-b21d-4961-a465-94323176ba12',
+    id: '4157daa8-b21d-4961-a789-94323176ba12',
     title: 'House in countryside',
     type: 'house',
     price: 368,
@@ -71,7 +71,7 @@ export const offers: Offers[] = [
     rating: 4.2,
   },
   {
-    id: 'f6e517e8-d266-48f0-9f61-8d2f2b3e6be6',
+    id: 'f6e517e8-d266-48f0-9f61-8d2f1b3e6be6',
     title: 'Amazing and Extremely Central Flat',
     type: 'hotel',
     price: 116,
@@ -94,7 +94,7 @@ export const offers: Offers[] = [
     rating: 1.5,
   },
   {
-    id: 'e4d1588c-9372-4d2c-a08b-caaf23f668e6',
+    id: 'e4d1588c-9372-4d2c-a08b-caaf23f66877',
     title: 'The house among olive ',
     type: 'hotel',
     price: 402,
@@ -140,7 +140,7 @@ export const offers: Offers[] = [
     rating: 4.2,
   },
   {
-    id: '6852faac-d558-4549-9ab8-229255ee863e',
+    id: '6852fwwc-d558-4549-9ab8-229255ee863e',
     title: 'Amazing and Extremely Central Flat',
     type: 'room',
     price: 258,

@@ -1,8 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
+import { Offers } from '../types/offer';
 
-export const changeCity = createAction(
-  'main/changeCity',
-  (city: string | undefined) => ({ payload: city })
-);
+export const changeCity = createAction<{ city: string }>('changeCity');
 
-export const loadOffers = createAction('main/loadOffers');
+export const loadOffers = createAction<{ offers: Offers[] }>('loadOffers');
