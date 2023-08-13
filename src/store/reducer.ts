@@ -3,12 +3,10 @@ import { offers } from '../mocks/offers';
 import { Offers } from '../types/offer';
 import { changeCity, loadOffers } from './action';
 
-type InitialStateType = {
-  city: string;
+const initialState: {
+  city: string | null;
   offers: Offers[];
-};
-
-const initialState: InitialStateType = {
+} = {
   city: 'Paris',
   offers: offers,
 };

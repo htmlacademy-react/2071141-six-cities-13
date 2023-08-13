@@ -11,6 +11,16 @@ export enum AuthorizationStatus {
   Uknown = 'UNKNOWN',
 }
 
+export enum NameSpace {
+  City = 'CITY',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  NearPlaces = 'NEAR_PLACES',
+  Favorites = 'FAVORITES',
+  Rewiews = 'REWIEWS',
+  User = 'USER',
+}
+
 export const MAX_COMMENT_LENGTH = 300;
 
 export const MIN_COMMENT_LENGTH = 50;

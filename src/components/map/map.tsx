@@ -89,7 +89,7 @@ function Map({
       style={{
         height: '100%',
         minHeight: '500px',
-        width: '100%',
+        width: '50%',
         maxWidth: '1144px',
         margin: '0 auto',
       }}
