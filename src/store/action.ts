@@ -17,3 +17,7 @@ export const loadFavorites = createAction<{ favorites: Offers[] }>(
 export const requireAuthorization = createAction<AuthorizationStatus>(
   `${NameSpace.User}/requireAuthorization`
 );
+
+export const setError = createAction<string | null>(
+  `${NameSpace.User}/setError`
+);
