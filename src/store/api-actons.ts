@@ -8,6 +8,7 @@ import {
   loadOffers,
   requireAuthorization,
   setError,
+  setOffersDataLoadingStatus,
 } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -23,7 +24,9 @@ export const fetchOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setOffersDataLoadingStatus(true));
   const { data } = await api.get<Offers[]>(APIRoute.Offers);
+  dispatch(setOffersDataLoadingStatus(false));
   dispatch(loadOffers({ offers: data }));
 });
 

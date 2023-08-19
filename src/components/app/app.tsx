@@ -8,6 +8,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks/index';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
   cities: string[];
@@ -15,6 +16,17 @@ type AppProps = {
 
 function App({ cities }: AppProps): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (
+    authorizationStatus === AuthorizationStatus.Uknown ||
+    isOffersDataLoading
+  ) {
+    return <LoadingScreen />;
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>

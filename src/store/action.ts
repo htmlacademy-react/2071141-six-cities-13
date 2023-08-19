@@ -21,3 +21,7 @@ export const requireAuthorization = createAction<AuthorizationStatus>(
 export const setError = createAction<string | null>(
   `${NameSpace.User}/setError`
 );
+
+export const setOffersDataLoadingStatus = createAction<boolean>(
+  'data/setOffersDataLoadingStatus'
+);

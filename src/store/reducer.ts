@@ -6,6 +6,7 @@ import {
   loadOffers,
   requireAuthorization,
   setError,
+  setOffersDataLoadingStatus,
 } from './action';
 import { AuthorizationStatus } from '../const';
 
@@ -13,6 +14,7 @@ type InitialState = {
   city: string | null;
   offers: Offers[];
   authorizationStatus: AuthorizationStatus;
+  isOffersLoading: boolean;
   error: string | null;
 };
 
@@ -20,6 +22,7 @@ const initialState: InitialState = {
   city: 'Paris',
   offers: [],
   authorizationStatus: AuthorizationStatus.Uknown,
+  isOffersLoading: false,
   error: null,
 };
 
@@ -30,6 +33,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload.offers;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
