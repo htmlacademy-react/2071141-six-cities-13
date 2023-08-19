@@ -7,9 +7,13 @@ export const changeCity = createAction<{ city: string }>(
 );
 
 export const loadOffers = createAction<{ offers: Offers[] }>(
-  `${NameSpace.Offers}loadOffers`
+  `${NameSpace.Offers}/loadOffers`
+);
+
+export const loadFavorites = createAction<{ favorites: Offers[] }>(
+  `${NameSpace.Favorites}/loadFavorites`
 );
 
 export const requireAuthorization = createAction<AuthorizationStatus>(
-  'user/requireAuthorization'
+  `${NameSpace.User}/requireAuthorization`
 );

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
+//import { offers } from '../mocks/offers';
 import { Offers } from '../types/offer';
 import { changeCity, loadOffers, requireAuthorization } from './action';
 import { AuthorizationStatus } from '../const';
@@ -10,7 +10,7 @@ const initialState: {
   authorizationStatus: AuthorizationStatus;
 } = {
   city: 'Paris',
-  offers: offers,
+  offers: [],
   authorizationStatus: AuthorizationStatus.Uknown,
 };
 
