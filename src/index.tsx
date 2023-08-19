@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { CITIES } from './const';
 import ErrorMessage from './components/error-message/error-message';
-import { checkAuthAction, fetchOffersAction } from './store/api-actons';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
