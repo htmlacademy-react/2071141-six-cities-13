@@ -1,28 +1,32 @@
 import { FormEvent, useRef } from 'react';
 import Logo from '../../components/logo/logo';
 
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks/index';
-import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 function LoginPage(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const dispatch = useAppDispatch;
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const isAuthorized = useAppSelector((state) => state.authorizationStatus);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (emailRef.current !== null && passwordRef.current !== null) {
       dispatch(
         loginAction({
-          login: loginRef.current.value,
+          email: emailRef.current.value,
           password: passwordRef.current.value,
         })
       );
+    }
+    if (isAuthorized === AuthorizationStatus.Auth) {
+      return <Navigate to={AppRoute.Root} />;
     }
   };
 
@@ -48,7 +52,7 @@ function LoginPage(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
-                  ref={loginRef}
+                  ref={emailRef}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -68,7 +72,6 @@ function LoginPage(): JSX.Element {
                 />
               </div>
               <button
-                onClick={() => navigate(AppRoute.Favorites)}
                 className="login__submit form__submit button"
                 type="submit"
               >
