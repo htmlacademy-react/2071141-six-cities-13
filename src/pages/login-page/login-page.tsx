@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import Logo from '../../components/logo/logo';
 
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -11,6 +11,7 @@ function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isAuthorized = useAppSelector((state) => state.authorizationStatus);
 
@@ -24,6 +25,7 @@ function LoginPage(): JSX.Element {
           password: passwordRef.current.value,
         })
       );
+      navigate(AppRoute.Root);
     }
     if (isAuthorized === AuthorizationStatus.Auth) {
       return <Navigate to={AppRoute.Root} />;
