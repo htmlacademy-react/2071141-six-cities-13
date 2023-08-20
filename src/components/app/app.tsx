@@ -12,11 +12,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  cities: string[];
-};
-
-function App({ cities }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
@@ -33,10 +29,7 @@ function App({ cities }: AppProps): JSX.Element {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<MainPage offers={offers} cities={cities} />}
-          />
+          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}
@@ -47,7 +40,7 @@ function App({ cities }: AppProps): JSX.Element {
             }
           />
           <Route
-            path={`${AppRoute.Offer}/:offerId`}
+            path={`${AppRoute.Offer}/:id`}
             element={<OfferPage offers={offers} />}
           />
           <Route path="*" element={<NotFoundPage />} />
