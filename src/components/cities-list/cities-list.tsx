@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity, loadOffers } from '../../store/action';
 import { Offers } from '../../types/offer';
+import { CITIES } from '../../const';
 
 type CitiesListProps = {
   offers: Offers[];
-  cities: string[];
 };
 
-function CitiesList({ offers, cities }: CitiesListProps): JSX.Element {
+function CitiesList({ offers }: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleCityClick = (city: string) => {
     dispatch(changeCity({ city }));
@@ -19,7 +19,7 @@ function CitiesList({ offers, cities }: CitiesListProps): JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
+      {CITIES.map((city) => (
         <li className="locations__item" key={city}>
           <a
             className={classNames('locations__item-link tabs__item', {
