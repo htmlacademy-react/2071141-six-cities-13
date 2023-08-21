@@ -90,7 +90,7 @@ export const AddCommenAction = createAsyncThunk<
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
-  'user/checkAuth',
+  `${NameSpace.User}/checkAuth`,
   async (_arg, { dispatch, extra: api }) => {
     try {
       await api.get(APIRoute.Login);
@@ -102,7 +102,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
 );
 
 export const loginAction = createAsyncThunk<void, AuthData, Extra>(
-  'user/login',
+  `${NameSpace.User}/login`,
   async ({ email, password }, { dispatch, extra: api }) => {
     const {
       data: { token },
@@ -114,7 +114,7 @@ export const loginAction = createAsyncThunk<void, AuthData, Extra>(
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, Extra>(
-  'user/logout',
+  `${NameSpace.User}/logout`,
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
