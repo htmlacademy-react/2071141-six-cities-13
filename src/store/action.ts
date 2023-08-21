@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offers } from '../types/offer';
+import { Offers } from '../types/offers';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../const';
 
 export const changeCity = createAction<{ city: string }>(

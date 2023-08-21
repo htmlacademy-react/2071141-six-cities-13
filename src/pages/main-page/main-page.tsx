@@ -4,7 +4,7 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import UserInfo from '../../components/user-info/user-info';
 import { useAppSelector } from '../../hooks/index';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 type MainPageProps = {

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Offers } from '../types/offer';
+import { Offers } from '../types/offers';
 import {
   changeCity,
   loadOffers,

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity, loadOffers } from '../../store/action';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
 import { CITIES } from '../../const';
 
 type CitiesListProps = {
