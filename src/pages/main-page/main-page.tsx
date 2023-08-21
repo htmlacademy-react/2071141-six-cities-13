@@ -9,10 +9,9 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 type MainPageProps = {
   offers: Offers[];
-  cities: string[];
 };
 
-function MainPage({ offers, cities }: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
   const city = useAppSelector((store) => store.city);
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === city
@@ -31,7 +30,7 @@ function MainPage({ offers, cities }: MainPageProps): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CitiesList offers={offers} cities={cities} />
+          <CitiesList offers={offers} />
         </section>
       </div>
       <div className="cities">

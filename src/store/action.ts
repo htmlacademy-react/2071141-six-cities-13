@@ -23,7 +23,9 @@ export const setError = createAction<string | null>(
 );
 
 export const setOffersDataLoadingStatus = createAction<boolean>(
-  'data/setOffersDataLoadingStatus'
+  `${NameSpace.Data}/setOffersDataLoadingStatus`
 );
 
-export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>(
+  `${NameSpace.Data}/redirectToRoute`
+);

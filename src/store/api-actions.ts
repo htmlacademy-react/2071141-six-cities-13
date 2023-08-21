@@ -14,6 +14,8 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 
+//1.22m
+
 export const fetchOffersAction = createAsyncThunk<
   void,
   undefined,
@@ -29,6 +31,10 @@ export const fetchOffersAction = createAsyncThunk<
   dispatch(loadOffers({ offers: data }));
 });
 
+//Offer
+
+//OffersNearby
+
 export const fetchFavoritesAction = createAsyncThunk<
   void,
   undefined,
@@ -41,6 +47,8 @@ export const fetchFavoritesAction = createAsyncThunk<
   const { data } = await api.get<Offers[]>(APIRoute.Favorites);
   dispatch(loadFavorites({ favorites: data }));
 });
+
+//Comments
 
 export const checkAuthAction = createAsyncThunk<
   void,
