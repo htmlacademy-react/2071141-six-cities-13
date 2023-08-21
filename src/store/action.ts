@@ -1,6 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offers } from '../types/offers';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../const';
+import { Offer } from '../types/offer';
+import { Comment, CommentAdd } from '../types/comment';
 
 export const changeCity = createAction<{ city: string }>(
   `${NameSpace.City}/changeCity`
@@ -9,9 +11,22 @@ export const changeCity = createAction<{ city: string }>(
 export const loadOffers = createAction<{ offers: Offers[] }>(
   `${NameSpace.Offers}/loadOffers`
 );
+export const loadOffer = createAction<Offer>(`${NameSpace.Offer}/loadOffer`);
 
-export const loadFavorites = createAction<{ favorites: Offers[] }>(
+export const loadFavorites = createAction<Offers[]>(
   `${NameSpace.Favorites}/loadFavorites`
+);
+
+export const loadNearPlaces = createAction<Offers[]>(
+  `${NameSpace.NearPlaces}/loadNearPlaces`
+);
+
+export const loadComments = createAction<Comment[]>(
+  `${NameSpace.Comments}/loadComments`
+);
+
+export const addComment = createAction<CommentAdd>(
+  `${NameSpace.Comments}/addComment`
 );
 
 export const requireAuthorization = createAction<AuthorizationStatus>(
