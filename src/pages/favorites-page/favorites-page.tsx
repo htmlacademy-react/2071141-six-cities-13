@@ -3,7 +3,7 @@ import FavoriteList from '../../components/favorite-list/favorite-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
 
 type FavoritesPageProps = {
   offers: Offers[];

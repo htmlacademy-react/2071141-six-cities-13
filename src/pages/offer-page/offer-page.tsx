@@ -4,7 +4,7 @@ import Logo from '../../components/logo/logo';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 import UserInfo from '../../components/user-info/user-info';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
 
 type OfferPageProps = {
   offers: Offers[];

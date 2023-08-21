@@ -17,6 +17,7 @@ export type Offers = {
   isPremium: boolean;
   location: Location;
   previewImage: string;
+  rating: number;
   price: number;
   title: string;
   type: string;
