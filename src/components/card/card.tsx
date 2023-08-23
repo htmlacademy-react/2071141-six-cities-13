@@ -4,18 +4,17 @@ import { Offers } from '../../types/offers';
 
 type CardProps = {
   offer: Offers;
-  onCardHover: () => void;
-  onCardLeave: () => void;
 };
 
-function Card({ offer, onCardHover, onCardLeave }: CardProps): JSX.Element {
-  const { title, type, price, previewImage, isPremium, rating } = offer;
+function Card({ offer }: CardProps): JSX.Element {
+  const { title, type, price, previewImage, isPremium, rating, id } = offer;
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={onCardHover}
-      onMouseLeave={onCardLeave}
+      id={id}
+      // onMouseEnter={onCardHover}
+      // onMouseLeave={onCardLeave}
     >
       {isPremium ? (
         <div className="place-card__mark">
@@ -53,7 +52,7 @@ function Card({ offer, onCardHover, onCardLeave }: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/:offerId`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

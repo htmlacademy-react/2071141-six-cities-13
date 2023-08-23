@@ -12,6 +12,8 @@ import {
   loadOffers,
   redirectToRoute,
   requireAuthorization,
+  setFavoritesDataLoadingStatus,
+  setNearPlacesDataLoadingStatus,
   setOffersDataLoadingStatus,
 } from './action';
 import { AuthData } from '../types/auth-data';
@@ -49,8 +51,9 @@ export const fetchFavoritesAction = createAsyncThunk<void, string, Extra>(
   `${NameSpace.Offers}/fetchOffers`,
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Offers[]>(APIRoute.Favorite);
-
+    dispatch(setFavoritesDataLoadingStatus(true));
     dispatch(loadFavorites(data));
+    dispatch(setFavoritesDataLoadingStatus(false));
   }
 );
 
@@ -58,9 +61,11 @@ export const fetchNearPlacesAction = createAsyncThunk<void, string, Extra>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
   async (offerId, { dispatch, extra: api }) => {
     const { data } = await api.get<Offers[]>(
-      `${APIRoute.Offers}/${offerId}/${APIRoute.Nearby}`
+      `${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`
     );
+    dispatch(setNearPlacesDataLoadingStatus(true));
     dispatch(loadNearPlaces(data));
+    dispatch(setNearPlacesDataLoadingStatus(true));
   }
 );
 

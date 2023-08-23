@@ -22,6 +22,7 @@ export enum AppRoute {
   Login = '/login',
   Root = '/',
   Offer = '/offer',
+  Offers = '/offers',
 }
 
 export enum AuthorizationStatus {
@@ -48,4 +49,11 @@ export enum APIRoute {
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
+}
+
+export enum RequestStatus {
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Success = 'Success',
+  Error = 'Error',
 }

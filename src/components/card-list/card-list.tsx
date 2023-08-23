@@ -1,4 +1,4 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { Offers } from '../../types/offers';
 import Card from '../card/card';
 
@@ -7,16 +7,11 @@ type CardListProps = {
 };
 
 function CardList({ offers }: CardListProps): JSX.Element {
-  const [, setActiveCard] = useState('');
+  //const [, setActiveCard] = useState('');
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <Card
-          key={offer.id}
-          offer={offer}
-          onCardHover={() => setActiveCard(offer.id)}
-          onCardLeave={() => setActiveCard('')}
-        />
+        <Card key={offer.id} offer={offer} />
       ))}
     </div>
   );

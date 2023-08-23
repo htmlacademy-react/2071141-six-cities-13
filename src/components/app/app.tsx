@@ -35,14 +35,11 @@ function App(): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={authorizationStatus}>
-                <FavoritesPage offers={offers} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage offers={offers} />}
-          />
+          <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </HistoryRouter>

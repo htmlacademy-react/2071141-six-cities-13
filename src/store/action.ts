@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offers } from '../types/offers';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../const';
+import { Offers } from '../types/offers';
 import { Offer } from '../types/offer';
 import { Comment, CommentAdd } from '../types/comment';
 
@@ -39,6 +39,13 @@ export const setError = createAction<string | null>(
 
 export const setOffersDataLoadingStatus = createAction<boolean>(
   `${NameSpace.Data}/setOffersDataLoadingStatus`
+);
+
+export const setNearPlacesDataLoadingStatus = createAction<boolean>(
+  `${NameSpace.Data}/setNearPlacesDataLoadingStatus`
+);
+export const setFavoritesDataLoadingStatus = createAction<boolean>(
+  `${NameSpace.Data}/setFavoritesLoadingStatus`
 );
 
 export const redirectToRoute = createAction<AppRoute>(
