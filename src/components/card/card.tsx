@@ -12,7 +12,7 @@ function Card({ offer }: CardProps): JSX.Element {
   return (
     <article
       className="cities__card place-card"
-      id={id}
+
       // onMouseEnter={onCardHover}
       // onMouseLeave={onCardLeave}
     >

@@ -29,7 +29,7 @@ type InitialState = {
   commentAdd: CommentAdd | null;
   authorizationStatus: AuthorizationStatus;
   isOffersLoading: boolean;
-  offerFetchingStatus: RequestStatus;
+  offerFetchStatus: RequestStatus;
   isNearPlacesLoading: boolean;
   isFavoritesLoading: boolean;
   error: string | null;
@@ -45,7 +45,7 @@ const initialState: InitialState = {
   commentAdd: null,
   authorizationStatus: AuthorizationStatus.Uknown,
   isOffersLoading: false,
-  offerFetchingStatus: RequestStatus.Idle,
+  offerFetchStatus: RequestStatus.Idle,
   isNearPlacesLoading: false,
   isFavoritesLoading: false,
   error: null,
@@ -72,13 +72,13 @@ const reducer = createReducer(initialState, (builder) => {
       state.isOffersLoading = action.payload;
     })
     .addCase(fetchOfferAction.rejected, (state) => {
-      state.offerFetchingStatus = RequestStatus.Error;
+      state.offerFetchStatus = RequestStatus.Error;
     })
     .addCase(fetchOfferAction.pending, (state) => {
-      state.offerFetchingStatus = RequestStatus.Pending;
+      state.offerFetchStatus = RequestStatus.Pending;
     })
     .addCase(fetchOfferAction.fulfilled, (state) => {
-      state.offerFetchingStatus = RequestStatus.Success;
+      state.offerFetchStatus = RequestStatus.Success;
     })
     .addCase(setNearPlacesDataLoadingStatus, (state, action) => {
       state.isNearPlacesLoading = action.payload;
