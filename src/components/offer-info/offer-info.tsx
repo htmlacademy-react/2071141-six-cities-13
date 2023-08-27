@@ -1,4 +1,5 @@
 import { Offer } from '../../types/offer';
+import { getRatingWidth } from '../../utils/utils';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 
@@ -51,8 +52,7 @@ function OfferInfo({ offer }: OfferInfoProps) {
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              {/* отображение количества звезд функция getRatingWidth */}
-              <span style={{ width: '40%' }} />
+              <span style={{ width: getRatingWidth(rating) }} />
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="offer__rating-value rating__value">{rating}</span>
