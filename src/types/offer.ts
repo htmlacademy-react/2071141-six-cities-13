@@ -9,7 +9,6 @@ type Host = {
 type OfferInfo = {
   description: string;
   bedrooms: number;
-  goods: string[];
   host: Host;
   images: string[];
   maxAdults: number;
