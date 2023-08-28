@@ -1,7 +1,7 @@
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { Location, Offers } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import useMap from '../../hooks/useMap/use-map';
 
 type IconConfig = {
@@ -14,7 +14,7 @@ type IconConfig = {
 
 type MapProps = {
   block: string;
-  location: Location;
+
   offers: Offers[];
   specialOffer: Offers | undefined;
 };
@@ -43,7 +43,8 @@ function createIcon(config: IconConfig) {
   });
 }
 
-function Map({ block, location, offers, specialOffer }: MapProps): JSX.Element {
+function Map({ block, offers, specialOffer }: MapProps): JSX.Element {
+  const location = offers[0].city.location;
   const mapRef = useRef(null);
   const map = useMap({ mapRef, location });
 

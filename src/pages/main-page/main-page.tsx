@@ -84,7 +84,6 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
             <Map
               block="cities"
               offers={currentOffers}
-              location={currentOffers[0].city.location}
               specialOffer={activeCard}
             />
           ) : (
