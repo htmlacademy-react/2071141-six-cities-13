@@ -15,4 +15,4 @@ export type CommentAdd = {
   rating: number;
 };
 
-export type Comment = CommentInfo | CommentAdd;
+export type Comment = CommentInfo & CommentAdd;

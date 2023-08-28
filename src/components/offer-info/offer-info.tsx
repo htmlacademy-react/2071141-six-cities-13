@@ -1,7 +1,6 @@
 import { Offer } from '../../types/offer';
 import { getRatingWidth } from '../../utils/utils';
-import ReviewForm from '../review-form/review-form';
-import ReviewList from '../review-list/review-list';
+import CommentList from '../comment-list/comment-list';
 
 type OfferInfoProps = {
   offer: Offer;
@@ -9,6 +8,7 @@ type OfferInfoProps = {
 
 function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
   const {
+    id,
     description,
     bedrooms,
     goods,
@@ -22,6 +22,7 @@ function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
     title,
     type,
   } = offer;
+
   return (
     <>
       <div className="offer__gallery-container container">
@@ -101,8 +102,7 @@ function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
               <p className="offer__text"></p>
             </div>
           </div>
-          <ReviewList />
-          <ReviewForm />
+          <CommentList id={id} />
         </div>
       </div>
     </>

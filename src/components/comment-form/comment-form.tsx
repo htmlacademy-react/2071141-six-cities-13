@@ -9,7 +9,7 @@ const ratingMap = {
   '1': 'terribly',
 };
 
-function ReviewForm(): JSX.Element {
+function CommentForm(): JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid =
@@ -88,4 +88,4 @@ function ReviewForm(): JSX.Element {
   );
 }
 
-export default ReviewForm;
+export default CommentForm;
