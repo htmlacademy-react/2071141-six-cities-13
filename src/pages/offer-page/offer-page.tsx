@@ -61,7 +61,7 @@ function OfferPage(): JSX.Element {
               block="offer"
               location={offer.location}
               offers={nearPlaces}
-              specialOfferId={offer.id}
+              specialOffer={offer}
             />
           </section>
           <div className="container">

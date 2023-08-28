@@ -7,7 +7,7 @@ type OfferInfoProps = {
   offer: Offer;
 };
 
-function OfferInfo({ offer }: OfferInfoProps) {
+function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
   const {
     description,
     bedrooms,

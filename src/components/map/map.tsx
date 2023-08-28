@@ -16,7 +16,7 @@ type MapProps = {
   block: string;
   location: Location;
   offers: Offers[];
-  specialOfferId: Offers['id'] | null;
+  specialOffer: Offers | undefined;
 };
 
 const defaultIconConfig: IconConfig = {
@@ -43,12 +43,7 @@ function createIcon(config: IconConfig) {
   });
 }
 
-function Map({
-  block,
-  location,
-  offers,
-  specialOfferId,
-}: MapProps): JSX.Element {
+function Map({ block, location, offers, specialOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, location });
 
@@ -70,7 +65,7 @@ function Map({
 
         marker
           .setIcon(
-            offer.id === specialOfferId
+            offer.id === specialOffer?.id
               ? createIcon(activeIconConfig)
               : createIcon(defaultIconConfig)
           )
@@ -80,7 +75,7 @@ function Map({
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, specialOfferId]);
+  }, [map, offers, specialOffer?.id]);
 
   return (
     <section

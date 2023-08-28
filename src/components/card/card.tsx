@@ -5,17 +5,27 @@ import { getRatingWidth } from '../../utils/utils';
 
 type CardProps = {
   offer: Offers;
+  onCardHover?: (offer: Offers) => void;
 };
 
-function Card({ offer }: CardProps): JSX.Element {
+function Card({ offer, onCardHover }: CardProps): JSX.Element {
   const { title, type, price, previewImage, isPremium, rating, id } = offer;
+
+  const handleCardHover = (card?: Offers) => {
+    if (onCardHover) {
+      onCardHover(card);
+    }
+  };
 
   return (
     <article
       className="cities__card place-card"
-
-      // onMouseEnter={onCardHover}
-      // onMouseLeave={onCardLeave}
+      onMouseEnter={() => {
+        handleCardHover(offer);
+      }}
+      onMouseLeave={() => {
+        handleCardHover();
+      }}
     >
       {isPremium ? (
         <div className="place-card__mark">

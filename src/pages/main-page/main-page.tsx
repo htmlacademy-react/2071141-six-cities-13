@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import CardList from '../../components/card-list/card-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Logo from '../../components/logo/logo';
@@ -16,6 +17,17 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === city
   );
+
+  const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
+
+  const handleCardHover = (card: Offers) => {
+    if (card) {
+      const currentOffer = offers.find((offer) => offer.id === card.id);
+      setActiveCard(currentOffer);
+    } else {
+      setActiveCard(undefined);
+    }
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -66,14 +78,14 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
                 </li>
               </ul>
             </form>
-            <CardList offers={currentOffers} />
+            <CardList offers={currentOffers} onCardHover={handleCardHover} />
           </section>
           {currentOffers.length ? (
             <Map
               block="cities"
               offers={currentOffers}
               location={currentOffers[0].city.location}
-              specialOfferId={currentOffers[0].id}
+              specialOffer={activeCard}
             />
           ) : (
             <NotFoundPage />
