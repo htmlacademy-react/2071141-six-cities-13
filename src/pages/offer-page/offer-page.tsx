@@ -59,8 +59,7 @@ function OfferPage(): JSX.Element {
             <OfferInfo offer={offer} />
             <Map
               block="offer"
-              location={offer.location}
-              offers={nearPlaces}
+              offers={nearPlaces.concat(offer)}
               specialOffer={offer}
             />
           </section>
