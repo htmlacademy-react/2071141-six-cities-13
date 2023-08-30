@@ -59,7 +59,11 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               {currentOffers.length} places to stay in {city}
             </b>
             <Sorting activeSorting={activeSorting} onChange={sortingChange} />
-            <CardList offers={currentOffers} onCardHover={handleCardHover} />
+            <CardList
+              activeSorting={activeSorting}
+              offers={currentOffers}
+              onCardHover={handleCardHover}
+            />
           </section>
           {currentOffers.length ? (
             <Map

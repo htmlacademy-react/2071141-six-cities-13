@@ -1,15 +1,21 @@
 import { Offers } from '../../types/offers';
+import { sorting } from '../../utils/sorting';
 import Card from '../card/card';
 
 type CardListProps = {
+  activeSorting: string;
   offers: Offers[];
   onCardHover?: (offer: Offers) => void;
 };
 
-function CardList({ offers, onCardHover }: CardListProps): JSX.Element {
+function CardList({
+  activeSorting,
+  offers,
+  onCardHover,
+}: CardListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => (
+      {sorting[activeSorting](offers).map((offer) => (
         <Card key={offer.id} offer={offer} onCardHover={onCardHover} />
       ))}
     </div>
