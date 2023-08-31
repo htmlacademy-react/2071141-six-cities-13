@@ -29,7 +29,15 @@ function App(): JSX.Element {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+          <Route
+            path={AppRoute.Root}
+            element={
+              <MainPage
+                authorizationStatus={authorizationStatus}
+                offers={offers}
+              />
+            }
+          />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}

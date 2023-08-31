@@ -9,12 +9,15 @@ import { Offers } from '../../types/offers';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { SortingType } from '../../types/sorting';
 import Sorting from '../../components/sorting/sorting';
+import { AuthorizationStatus } from '../../const';
+import SignIn from '../../components/sign-in/sing-in';
 
 type MainPageProps = {
+  authorizationStatus: AuthorizationStatus;
   offers: Offers[];
 };
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
+function MainPage({ authorizationStatus, offers }: MainPageProps): JSX.Element {
   const city = useAppSelector((store) => store.city);
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === city
@@ -41,7 +44,11 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <Logo />
-            <UserInfo />
+            {authorizationStatus === AuthorizationStatus.Auth ? (
+              <UserInfo />
+            ) : (
+              <SignIn />
+            )}
           </div>
         </div>
       </header>
