@@ -21,15 +21,9 @@ function OfferPage(): JSX.Element {
 
   const offer = useAppSelector((state) => state.offer);
   const nearPlaces = useAppSelector((state) => state.nearPlaces).slice(0, 3);
-  // const favorites = useAppSelector((state) => state.favorites);
+  //const favorites = useAppSelector((state) => state.favorites);
 
   const offerFetchStatus = useAppSelector((state) => state.offerFetchStatus);
-  // const nearPlacesFetchingStatus = useAppSelector(
-  //   (state) => state.isNearPlacesLoading
-  // );
-  // const favoritesFetchingStatus = useAppSelector(
-  //   (state) => state.isFavoritesLoading
-  // );
 
   useEffect(() => {
     if (id) {

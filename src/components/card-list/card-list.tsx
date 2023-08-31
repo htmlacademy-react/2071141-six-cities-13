@@ -5,7 +5,7 @@ import Card from '../card/card';
 type CardListProps = {
   activeSorting: string;
   offers: Offers[];
-  onCardHover?: (offer: Offers) => void;
+  onCardHover?: (offer: Offers | undefined) => void;
 };
 
 function CardList({

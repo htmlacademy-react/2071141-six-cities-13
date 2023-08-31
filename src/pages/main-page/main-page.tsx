@@ -26,7 +26,7 @@ function MainPage({ authorizationStatus, offers }: MainPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
 
-  const handleCardHover = (card: Offers) => {
+  const handleCardHover = (card: Offers | undefined) => {
     if (card) {
       const currentOffer = offers.find((offer) => offer.id === card.id);
       setActiveCard(currentOffer);

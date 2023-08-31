@@ -5,7 +5,7 @@ import { getRatingWidth } from '../../utils/utils';
 
 type CardProps = {
   offer: Offers;
-  onCardHover?: (offer: Offers) => void;
+  onCardHover?: (offer: Offers | undefined) => void;
 };
 
 function Card({ offer, onCardHover }: CardProps): JSX.Element {
