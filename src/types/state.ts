@@ -1,6 +1,6 @@
 import { AuthorizationStatus, CityMap, RequestStatus } from '../const';
 import { store } from '../store/index';
-import { Comment, CommentAdd } from './comment';
+import { Comment } from './comment';
 import { Offer } from './offer';
 import { City, Offers } from './offers';
 

@@ -14,12 +14,13 @@ import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
 import OfferInfo from '../../components/offer-info/offer-info';
+import { getOffers } from '../../store/offers-data/offers-data.selectors';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector((state) => state.offer);
+  const offer = useAppSelector(getOffers);
   const nearPlaces = useAppSelector((state) => state.nearPlaces).slice(0, 3);
   //const favorites = useAppSelector((state) => state.favorites);
 

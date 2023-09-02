@@ -25,6 +25,7 @@ export enum AppRoute {
   Root = '/',
   Offer = '/offer',
   Offers = '/offers',
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {

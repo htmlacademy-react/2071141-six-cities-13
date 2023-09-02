@@ -3,9 +3,11 @@ import { NameSpace } from '../const';
 import { offersData } from './offers-data/offers-data.slice';
 import { userData } from './user-data/user-data.slice';
 import { offerData } from './offer-data/offer-data.slice';
+import { commentsData } from './coments-data/comments-data.slice';
 
 export const rootReducer = combineReducers({
   [NameSpace.User]: userData.reducer,
   [NameSpace.Offers]: offersData.reducer,
   [NameSpace.Offer]: offerData.reducer,
+  [NameSpace.Comments]: commentsData.reducer,
 });
