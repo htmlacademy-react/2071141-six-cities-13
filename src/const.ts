@@ -30,7 +30,7 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Uknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN',
 }
 
 export enum NameSpace {
@@ -65,4 +65,13 @@ export enum SortingMap {
   LowToHigh = 'Price: low to high',
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
+}
+
+export enum CityMap {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussele = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
 }

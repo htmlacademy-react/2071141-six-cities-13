@@ -28,22 +28,19 @@ type Extra = {
   extra: AxiosInstance;
 };
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, Extra>(
+export const fetchOffersAction = createAsyncThunk<Offers[], undefined, Extra>(
   `${NameSpace.Offers}/fetchOffers`,
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setOffersDataLoadingStatus(true));
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offers[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers({ offers: data }));
+    return data;
   }
 );
 
-export const fetchOfferAction = createAsyncThunk<void, string, Extra>(
+export const fetchOfferAction = createAsyncThunk<Offer, Offer['id'], Extra>(
   `${NameSpace.Offer}/fetchOffer`,
-  async (offerId, { dispatch, extra: api }) => {
+  async (offerId, { extra: api }) => {
     const { data } = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
-
-    dispatch(loadOffer(data));
+    return data;
   }
 );
 
@@ -69,40 +66,34 @@ export const fetchNearPlacesAction = createAsyncThunk<void, string, Extra>(
   }
 );
 
-export const fetchCommentAction = createAsyncThunk<void, string, Extra>(
-  `${NameSpace.Comments}/fetchComments`,
-  async (offerId, { dispatch, extra: api }) => {
-    const { data } = await api.get<Comment[]>(
-      `${APIRoute.Comments}/${offerId}`
-    );
-    dispatch(loadComments(data));
-  }
-);
+export const fetchCommentAction = createAsyncThunk<
+  Comment[],
+  Offer['id'],
+  Extra
+>(`${NameSpace.Comments}/fetchComments`, async (offerId, { extra: api }) => {
+  const { data } = await api.get<Comment[]>(`${APIRoute.Comments}/${offerId}`);
+  return data;
+});
 
-export const AddCommenAction = createAsyncThunk<
-  void,
-  { commentData: CommentAdd; offerId: Offers['id'] },
+export const addCommentAction = createAsyncThunk<
+  Comment[],
+  { commentData: CommentAdd; offerId: Offer['id'] },
   Extra
 >(
   `${NameSpace.Comments}/addComment`,
-  async ({ commentData, offerId }, { dispatch, extra: api }) => {
+  async ({ commentData, offerId }, { extra: api }) => {
     const { data } = await api.post<CommentAdd>(
       `${APIRoute.Comments}/${offerId}`,
       commentData
     );
-    dispatch(addComment(data));
+    return data;
   }
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
   `${NameSpace.User}/checkAuth`,
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
+  async (_arg, { extra: api }) => {
+    await api.get(APIRoute.Login);
   }
 );
 
