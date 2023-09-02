@@ -25,6 +25,6 @@ export type OfferData = {
 
 export type CommentsData = {
   comment: Comment[];
-  commentFetchingStatus: RequestStatus;
-  commentAddFetchingStatus: RequestStatus;
+  fetchingStatus: RequestStatus;
+  sendingStatus: RequestStatus;
 };

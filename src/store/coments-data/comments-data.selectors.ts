@@ -6,10 +6,8 @@ export const getComment = (state: State): Comment =>
 
 export const getCommentFetchingStatus = (
   state: Pick<State | NameSpace.Comments>
-): CommentsData['commentFetchingStatus'] =>
-  state[NameSpace.Comments].commentFetchingStatus;
+): CommentsData['fetchingStatus'] => state[NameSpace.Comments].fetchingStatus;
 
 export const getCommentAddFetchingStatus = (
   state: Pick<State | NameSpace.Comments>
-): CommentsData['commentAddFetchingStatus'] =>
-  state[NameSpace.Comments].commentAddFetchingStatus;
+): CommentsData['sendingStatus'] => state[NameSpace.Comments].sendingStatus;
