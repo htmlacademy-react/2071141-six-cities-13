@@ -2,25 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { Offers } from '../types/offers';
-import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../const';
-import {
-  addComment,
-  loadComments,
-  loadFavorites,
-  loadNearPlaces,
-  loadOffer,
-  loadOffers,
-  redirectToRoute,
-  requireAuthorization,
-  setFavoritesDataLoadingStatus,
-  setNearPlacesDataLoadingStatus,
-  setOffersDataLoadingStatus,
-} from './action';
+import { APIRoute, NameSpace } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { Offer } from '../types/offer';
-import { Comment, CommentAdd } from '../types/comment';
+import { Comment } from '../types/comment';
 
 type Extra = {
   dispatch: AppDispatch;
@@ -44,25 +31,21 @@ export const fetchOfferAction = createAsyncThunk<Offer, Offer['id'], Extra>(
   }
 );
 
-export const fetchFavoritesAction = createAsyncThunk<void, string, Extra>(
+export const fetchFavoritesAction = createAsyncThunk<Offers[], string, Extra>(
   `${NameSpace.Offers}/fetchOffers`,
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offers[]>(APIRoute.Favorite);
-    dispatch(setFavoritesDataLoadingStatus(true));
-    dispatch(loadFavorites(data));
-    dispatch(setFavoritesDataLoadingStatus(false));
+    return data;
   }
 );
 
-export const fetchNearPlacesAction = createAsyncThunk<void, string, Extra>(
+export const fetchNearPlacesAction = createAsyncThunk<Offers[], string, Extra>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
-  async (offerId, { dispatch, extra: api }) => {
+  async (offerId, { extra: api }) => {
     const { data } = await api.get<Offers[]>(
       `${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`
     );
-    dispatch(setNearPlacesDataLoadingStatus(true));
-    dispatch(loadNearPlaces(data));
-    dispatch(setNearPlacesDataLoadingStatus(true));
+    return data;
   }
 );
 
@@ -77,12 +60,12 @@ export const fetchCommentAction = createAsyncThunk<
 
 export const addCommentAction = createAsyncThunk<
   Comment[],
-  { commentData: CommentAdd; offerId: Offer['id'] },
+  { commentData: Comment; offerId: Offer['id'] },
   Extra
 >(
   `${NameSpace.Comments}/addComment`,
   async ({ commentData, offerId }, { extra: api }) => {
-    const { data } = await api.post<CommentAdd>(
+    const { data } = await api.post<Comment[]>(
       `${APIRoute.Comments}/${offerId}`,
       commentData
     );
@@ -90,30 +73,30 @@ export const addCommentAction = createAsyncThunk<
   }
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, Extra>(
+export const checkAuthAction = createAsyncThunk<AuthData, undefined, Extra>(
   `${NameSpace.User}/checkAuth`,
   async (_arg, { extra: api }) => {
-    await api.get(APIRoute.Login);
+    const { data } = await api.get<AuthData>(APIRoute.Login);
+    return data;
   }
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, Extra>(
+export const loginAction = createAsyncThunk<UserData, AuthData, Extra>(
   `${NameSpace.User}/login`,
-  async ({ email, password }, { dispatch, extra: api }) => {
-    const {
-      data: { token },
-    } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.Root));
+  async ({ email, password }, { extra: api }) => {
+    const { data } = await api.post<UserData>(APIRoute.Login, {
+      email,
+      password,
+    });
+    saveToken(data.token);
+    return data;
   }
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, Extra>(
   `${NameSpace.User}/logout`,
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
