@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -15,11 +15,10 @@ import { getAuthorizationStatus } from '../../store/user-data/user-data.selector
 import { getOffers } from '../../store/offers-data/offers-data.selectors';
 
 function App(): JSX.Element {
-  const offers = useAppSelector(getOffers);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   //const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
 
-  if (!authorizationStatus) {
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
   }
   return (
@@ -28,12 +27,7 @@ function App(): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={
-              <MainPage
-                authorizationStatus={authorizationStatus}
-                offers={offers}
-              />
-            }
+            element={<MainPage authorizationStatus={authorizationStatus} />}
           />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route

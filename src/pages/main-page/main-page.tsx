@@ -4,23 +4,31 @@ import CitiesList from '../../components/cities-list/cities-list';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import UserInfo from '../../components/user-info/user-info';
-import { useAppSelector } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { Offers } from '../../types/offers';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { SortingType } from '../../types/sorting';
 import Sorting from '../../components/sorting/sorting';
 import { AuthorizationStatus } from '../../const';
 import SignIn from '../../components/sign-in/sing-in';
+import {
+  getActiveCity,
+  getOffers,
+  getOffersFetchingStatus,
+} from '../../store/offers-data/offers-data.selectors';
 
 type MainPageProps = {
   authorizationStatus: AuthorizationStatus;
-  offers: Offers[];
 };
 
-function MainPage({ authorizationStatus, offers }: MainPageProps): JSX.Element {
-  const city = useAppSelector((store) => store.city);
+function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffers);
+  const offersFetchingStatus = useAppSelector(getOffersFetchingStatus);
+
   const currentOffers: Offers[] = offers.filter(
-    (offer) => offer.city.name === city
+    (offer) => offer.city.name === activeCity
   );
 
   const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
@@ -63,7 +71,7 @@ function MainPage({ authorizationStatus, offers }: MainPageProps): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {currentOffers.length} places to stay in {city}
+              {currentOffers.length} places to stay in {activeCity}
             </b>
             <Sorting activeSorting={activeSorting} onChange={sortingChange} />
             <CardList

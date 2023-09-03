@@ -10,7 +10,7 @@ export const TITLE_LAYER =
 export const COPYRIGHT =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-export const CITIES = [
+export const CityNames: string[] = [
   'Paris',
   'Cologne',
   'Brussels',
