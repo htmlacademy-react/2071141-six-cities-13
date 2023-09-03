@@ -59,6 +59,7 @@ export enum RequestStatus {
   Pending = 'Pending',
   Success = 'Success',
   Error = 'Error',
+  Rejected = 'Rejected',
 }
 
 export enum SortingMap {

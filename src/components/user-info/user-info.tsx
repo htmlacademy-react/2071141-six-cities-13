@@ -3,9 +3,11 @@ import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
 import { getFavorites } from '../../store/favorites-data/favorites-data.selectors';
+import { getUser } from '../../store/user-data/user-data.selectors';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
 
   const favorites = useAppSelector(getFavorites);
 
@@ -18,9 +20,7 @@ function UserInfo(): JSX.Element {
             to={AppRoute.Favorites}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-            <span className="header__user-name user__name">
-              Oliver.conner@gmail.com
-            </span>
+            <span className="header__user-name user__name">{user?.email}</span>
             <span className="header__favorite-count">{favorites.length}</span>
           </Link>
         </li>

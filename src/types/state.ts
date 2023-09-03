@@ -1,4 +1,4 @@
-import { AuthorizationStatus, CityMap, RequestStatus } from '../const';
+import { AuthorizationStatus, RequestStatus } from '../const';
 import { store } from '../store/index';
 import { Comment } from './comment';
 import { Offer } from './offer';
@@ -18,7 +18,7 @@ export type UserData = {
 export type OffersData = {
   offers: Offers[];
   fetchingStatus: RequestStatus;
-  activeCity: CityMap | City;
+  activeCity: City['name'];
 };
 
 export type OfferData = {
@@ -32,7 +32,7 @@ export type NearPlacesData = {
 };
 
 export type FavoritesData = {
-  favorites: Offers[] | null;
+  favorites: Offers[];
   fetchingStatus: RequestStatus;
 };
 

@@ -4,11 +4,11 @@ import { AxiosInstance } from 'axios';
 import { Offers } from '../types/offers';
 import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../const';
 import { AuthData } from '../types/auth-data';
-import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { Offer } from '../types/offer';
 import { Comment } from '../types/comment';
 import { redirectToRoute } from './action';
+import { User } from '../types/user';
 
 type Extra = {
   dispatch: AppDispatch;
@@ -92,22 +92,23 @@ export const addCommentAction = createAsyncThunk<
   }
 );
 
-export const checkAuthAction = createAsyncThunk<AuthData, undefined, Extra>(
+export const checkAuthAction = createAsyncThunk<User, undefined, Extra>(
   `${NameSpace.User}/checkAuth`,
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<AuthData>(APIRoute.Login);
+    const { data } = await api.get<User>(APIRoute.Login);
     return data;
   }
 );
 
-export const loginAction = createAsyncThunk<UserData, AuthData, Extra>(
+export const loginAction = createAsyncThunk<User, AuthData, Extra>(
   `${NameSpace.User}/login`,
-  async ({ email, password }, { extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, {
+  async ({ email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<User>(APIRoute.Login, {
       email,
       password,
     });
     saveToken(data.token);
+    dispatch(redirectToRoute(AppRoute.Root));
 
     return data;
   }

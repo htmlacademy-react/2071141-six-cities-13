@@ -26,6 +26,7 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
   const offersFetchingStatus = useAppSelector(getOffersFetchingStatus);
+  console.log(activeCity);
 
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === activeCity
@@ -63,7 +64,7 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CitiesList offers={offers} />
+          <CitiesList activeCity={activeCity} />
         </section>
       </div>
       <div className="cities">

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CityMap, NameSpace, RequestStatus } from '../../const';
+import { NameSpace, RequestStatus } from '../../const';
 import { OffersData } from '../../types/state';
 import { City } from '../../types/offers';
 import { fetchOffersAction } from '../api-actions';
@@ -7,14 +7,14 @@ import { fetchOffersAction } from '../api-actions';
 const initialState: OffersData = {
   offers: [],
   fetchingStatus: RequestStatus.Idle,
-  activeCity: CityMap.Paris,
+  activeCity: 'Paris',
 };
 
 export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    setActiveCity(state, action: PayloadAction<City>) {
+    setActiveCity(state, action: PayloadAction<City['name']>) {
       state.activeCity = action.payload;
     },
   },

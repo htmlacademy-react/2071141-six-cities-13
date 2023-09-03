@@ -14,19 +14,21 @@ import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
 import OfferInfo from '../../components/offer-info/offer-info';
-import { getOffers } from '../../store/offers-data/offers-data.selectors';
 import { getNearPlaces } from '../../store/near-places-data/near-places-data.selectors';
-import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
+import {
+  getOffer,
+  getOfferFetchingStatus,
+} from '../../store/offer-data/offer-data.selector';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector(getOffers);
+  const offer = useAppSelector(getOffer);
   const nearPlaces = useAppSelector(getNearPlaces).slice(0, 3);
   //const favorites = useAppSelector((state) => state.favorites);
 
-  const offerFetchStatus = useAppSelector(getAuthorizationStatus);
+  const offerFetchStatus = useAppSelector(getOfferFetchingStatus);
 
   useEffect(() => {
     if (id) {
