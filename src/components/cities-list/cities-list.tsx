@@ -15,7 +15,7 @@ function CitiesList({ offers }: CitiesListProps): JSX.Element {
     dispatch(loadOffers({ offers }));
   };
 
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(get);
 
   return (
     <ul className="locations__list tabs__list">

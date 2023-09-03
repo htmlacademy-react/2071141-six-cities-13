@@ -1,7 +1,7 @@
 import { NameSpace } from '../../const';
 import { CommentsData, State } from '../../types/state';
 
-export const getComment = (state: State): CommentsData['comment'] =>
+export const getComments = (state: State): CommentsData['comment'] =>
   state[NameSpace.Comments].comment;
 
 export const getCommentFetchingStatus = (

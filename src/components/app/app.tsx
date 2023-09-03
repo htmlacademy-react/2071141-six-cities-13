@@ -11,12 +11,12 @@ import { useAppSelector } from '../../hooks/index';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
-import { getAuthCheckedStatus } from '../../store/user-data/user-data.selectors';
+import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
 import { getOffers } from '../../store/offers-data/offers-data.selectors';
 
 function App(): JSX.Element {
   const offers = useAppSelector(getOffers);
-  const authorizationStatus = useAppSelector(getAuthCheckedStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   //const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
 
   if (!authorizationStatus) {

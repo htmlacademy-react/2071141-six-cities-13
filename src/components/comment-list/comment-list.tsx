@@ -5,17 +5,16 @@ import CommentForm from '../comment-form/comment-form';
 import { fetchCommentAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import CommentCard from '../comment-card/comment-card';
+import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
+import { getComments } from '../../store/coments-data/comments-data.selectors';
 
 type CommentFormProps = {
   id: Offer['id'];
 };
 
 function CommentList({ id }: CommentFormProps): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const dispatch = useAppDispatch();
-  const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const comments = useAppSelector(getComments);
 
   useEffect(() => {
     if (id) {

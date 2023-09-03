@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
+import { getFavorites } from '../../store/favorites-data/favorites-data.selectors';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector(getFavorites);
 
   return (
     <nav className="header__nav">
