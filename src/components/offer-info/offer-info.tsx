@@ -1,12 +1,17 @@
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/index';
 import { Offer } from '../../types/offer';
 import { getRatingWidth } from '../../utils/utils';
 import CommentList from '../comment-list/comment-list';
+import { fetchCommentAction } from '../../store/api-actions';
 
 type OfferInfoProps = {
   offer: Offer;
 };
 
 function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const {
     id,
     description,
@@ -22,6 +27,10 @@ function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
     title,
     type,
   } = offer;
+
+  useEffect(() => {
+    dispatch(fetchCommentAction(id));
+  }, [dispatch, id]);
 
   return (
     <>

@@ -14,7 +14,10 @@ import Card from '../../components/card/card';
 import Map from '../../components/map/map';
 import { Helmet } from 'react-helmet-async';
 import OfferInfo from '../../components/offer-info/offer-info';
-import { getNearPlaces } from '../../store/near-places-data/near-places-data.selectors';
+import {
+  getNearPlaces,
+  getNearPlacesFetchingStatus,
+} from '../../store/near-places-data/near-places-data.selectors';
 import {
   getOffer,
   getOfferFetchingStatus,
@@ -28,7 +31,8 @@ function OfferPage(): JSX.Element {
   const nearPlaces = useAppSelector(getNearPlaces).slice(0, 3);
   //const favorites = useAppSelector((state) => state.favorites);
 
-  const offerFetchStatus = useAppSelector(getOfferFetchingStatus);
+  const offerFetchingStatus = useAppSelector(getOfferFetchingStatus);
+  const nearPlacesFetchindStatus = useAppSelector(getNearPlacesFetchingStatus);
 
   useEffect(() => {
     if (id) {
@@ -37,46 +41,49 @@ function OfferPage(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  return (
-    <>
-      {offerFetchStatus === RequestStatus.Error && <NotFoundPage />}
-      {offerFetchStatus === RequestStatus.Pending && <LoadingScreen />}
-      {offerFetchStatus === RequestStatus.Success && offer && (
-        <main className="page__main page__main--offer">
-          <Helmet>
-            <title>{`6 cities - ${offer.title}`}</title>
-          </Helmet>
-          <header className="header">
-            <div className="container">
-              <div className="header__wrapper">
-                <Logo />
-                <UserInfo />
-              </div>
-            </div>
-          </header>
-          <section className="offer">
-            <OfferInfo offer={offer} />
-            <Map
-              block="offer"
-              offers={nearPlaces.concat(offer)}
-              specialOffer={offer}
-            />
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {nearPlaces.map((nearPlace) => (
-                  <Card key={nearPlace.id} offer={nearPlace} />
-                ))}
-              </div>
-            </section>
+  if (
+    offerFetchingStatus === RequestStatus.Pending ||
+    nearPlacesFetchindStatus === RequestStatus.Pending
+  ) {
+    return <LoadingScreen />;
+  }
+
+  return offerFetchingStatus === RequestStatus.Success && offer ? (
+    <main className="page__main page__main--offer">
+      <Helmet>
+        <title>{`6 cities - ${offer.title}`}</title>
+      </Helmet>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <Logo />
+            <UserInfo />
           </div>
-        </main>
-      )}
-    </>
+        </div>
+      </header>
+      <section className="offer">
+        <OfferInfo offer={offer} />
+        <Map
+          block="offer"
+          offers={nearPlaces.concat(offer)}
+          specialOffer={offer}
+        />
+      </section>
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">
+            Other places in the neighbourhood
+          </h2>
+          <div className="near-places__list places__list">
+            {nearPlaces.map((nearPlace) => (
+              <Card key={nearPlace.id} offer={nearPlace} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  ) : (
+    <NotFoundPage />
   );
 }
 

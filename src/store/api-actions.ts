@@ -6,7 +6,7 @@ import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../const';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { Offer } from '../types/offer';
-import { Comment } from '../types/comment';
+import { Comment, CommentAdd } from '../types/comment';
 import { redirectToRoute } from './action';
 import { User } from '../types/user';
 
@@ -79,15 +79,16 @@ export const fetchCommentAction = createAsyncThunk<
 
 export const addCommentAction = createAsyncThunk<
   Comment[],
-  { commentData: Comment; offerId: Offer['id'] },
+  { commentData: CommentAdd; offerId: Offer['id'] },
   Extra
 >(
   `${NameSpace.Comments}/addComment`,
-  async ({ commentData, offerId }, { extra: api }) => {
+  async ({ commentData, offerId }, { dispatch, extra: api }) => {
     const { data } = await api.post<Comment[]>(
       `${APIRoute.Comments}/${offerId}`,
       commentData
     );
+    dispatch(fetchCommentAction(offerId));
     return data;
   }
 );

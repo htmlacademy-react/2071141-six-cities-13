@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offers } from '../../types/offers';
 import { getRatingWidth } from '../../utils/utils';
+import { useAppDispatch } from '../../hooks/index';
 
 type CardProps = {
   offer: Offers;
@@ -9,7 +10,18 @@ type CardProps = {
 };
 
 function Card({ offer, onCardHover }: CardProps): JSX.Element {
-  const { title, type, price, previewImage, isPremium, rating, id } = offer;
+  const {
+    title,
+    type,
+    price,
+    previewImage,
+    isFavorite,
+    isPremium,
+    rating,
+    id,
+  } = offer;
+  const dispatch = useAppDispatch();
+  const status = Number(!isFavorite);
 
   const handleCardHover = (card?: Offers) => {
     if (onCardHover) {

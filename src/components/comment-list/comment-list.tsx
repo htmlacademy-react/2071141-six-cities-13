@@ -1,26 +1,32 @@
-import { useEffect } from 'react';
-import { AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks/index/index';
+import { AuthorizationStatus, RequestStatus } from '../../const';
+import { useAppSelector } from '../../hooks/index/index';
 import CommentForm from '../comment-form/comment-form';
-import { fetchCommentAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import CommentCard from '../comment-card/comment-card';
 import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
-import { getComments } from '../../store/coments-data/comments-data.selectors';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import {
+  getCommentFetchingStatus,
+  getComments,
+} from '../../store/coments-data/comments-data.selectors';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-type CommentFormProps = {
+type CommentListProps = {
   id: Offer['id'];
 };
 
-function CommentList({ id }: CommentFormProps): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+function CommentList({ id }: CommentListProps): JSX.Element {
   const comments = useAppSelector(getComments);
+  const commentsFetchingStatus = useAppSelector(getCommentFetchingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchCommentAction(id));
-    }
-  }, [id, dispatch]);
+  if (commentsFetchingStatus === RequestStatus.Pending) {
+    return <LoadingScreen />;
+  }
+
+  if (commentsFetchingStatus === RequestStatus.Rejected) {
+    return <NotFoundPage />;
+  }
 
   return (
     <>
@@ -28,12 +34,14 @@ function CommentList({ id }: CommentFormProps): JSX.Element {
         <h2 className="reviews__title">
           Reviews · <span className="reviews__amount">{comments.length}</span>
         </h2>
-
         {comments.map((comment) => (
           <CommentCard key={comment.id} userComment={comment} />
         ))}
       </section>
-      ;{authorizationStatus === AuthorizationStatus.Auth && <CommentForm />}
+      ;
+      {authorizationStatus === AuthorizationStatus.Auth && (
+        <CommentForm id={id} />
+      )}
     </>
   );
 }
