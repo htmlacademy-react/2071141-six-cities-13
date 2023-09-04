@@ -3,10 +3,23 @@ import FavoriteList from '../../components/favorite-list/favorite-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
-import { useAppSelector } from '../../hooks/index';
+import { RequestStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import {
+  getFavorites,
+  getFavoritesFetchingStatus,
+} from '../../store/favorites-data/favorites-data.selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function FavoritesPage(): JSX.Element {
-  const favorites = useAppSelector((state) => state.favorites);
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(getFavorites);
+  const favoritesFetchingStaus = useAppSelector(getFavoritesFetchingStatus);
+
+  if (favoritesFetchingStaus === RequestStatus.Pending) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="page">
       <header className="header">

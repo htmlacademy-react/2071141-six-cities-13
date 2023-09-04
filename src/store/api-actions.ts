@@ -40,7 +40,7 @@ export const fetchFavoritesAction = createAsyncThunk<Offers[], string, Extra>(
   }
 );
 export const changeFavoritesAction = createAsyncThunk<
-  Offer | null,
+  Offer,
   { id: string; status: number },
   Extra & { state: State }
 >(

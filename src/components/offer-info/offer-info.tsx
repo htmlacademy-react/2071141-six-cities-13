@@ -4,6 +4,7 @@ import { Offer } from '../../types/offer';
 import { getRatingWidth } from '../../utils/utils';
 import CommentList from '../comment-list/comment-list';
 import { fetchCommentAction } from '../../store/api-actions';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type OfferInfoProps = {
   offer: Offer;
@@ -52,13 +53,7 @@ function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
           )}
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{title}</h1>
-            <button className="offer__bookmark-button button" type="button">
-              <svg className="offer__bookmark-icon" width={31} height={33}>
-                {/* Здесь будет компонент bookmarkButton */}
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkButton id="id" isActive={isFavorite} />
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">

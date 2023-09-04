@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CardList from '../../components/card-list/card-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Logo from '../../components/logo/logo';
@@ -9,13 +9,15 @@ import { Offers } from '../../types/offers';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { SortingType } from '../../types/sorting';
 import Sorting from '../../components/sorting/sorting';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 import SignIn from '../../components/sign-in/sing-in';
 import {
   getActiveCity,
   getOffers,
   getOffersFetchingStatus,
 } from '../../store/offers-data/offers-data.selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type MainPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -26,26 +28,31 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
   const offersFetchingStatus = useAppSelector(getOffersFetchingStatus);
-  console.log(activeCity);
-
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === activeCity
   );
-
   const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
 
-  const handleCardHover = (card: Offers | undefined) => {
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch, authorizationStatus]);
+
+  const handleCardHover = useCallback((card: Offers | undefined) => {
     if (card) {
       const currentOffer = offers.find((offer) => offer.id === card.id);
       setActiveCard(currentOffer);
     } else {
       setActiveCard(undefined);
     }
-  };
+  }, []);
 
   const sortingChange = (newSorting: SortingType) =>
     setActiveSorting(newSorting);
+
+  if (offersFetchingStatus === RequestStatus.Pending) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page page--gray page--main">
