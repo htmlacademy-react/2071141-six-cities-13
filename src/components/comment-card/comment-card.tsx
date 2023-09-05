@@ -1,5 +1,5 @@
 import { Comment } from '../../types/comment';
-import { getRatingWidth } from '../../utils/utils';
+import { getFormatDate, getRatingWidth } from '../../utils/utils';
 
 type CommentProps = {
   userComment: Comment;
@@ -30,8 +30,7 @@ function CommentCard({ userComment }: CommentProps) {
         </div>
         <p className="reviews__text">{comment}</p>
         <time className="reviews__time" dateTime={'2019-04-24'}>
-          {date}
-          {/* испраить дату */}
+          {getFormatDate(date)}
         </time>
       </div>
     </li>

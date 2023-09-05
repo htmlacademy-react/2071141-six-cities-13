@@ -2,15 +2,26 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/index';
 import { Offers } from '../../types/offers';
 import { changeFavoritesAction } from '../../store/api-actions';
+import { FavoritePageType, FavoriteIconSize } from '../../const';
+import cn from 'classnames';
 
 type BookmarkProps = {
+  pageType: FavoritePageType;
   id: Offers['id'];
   isActive: Offers['isFavorite'];
 };
 
-function BookmarkButton({ id, isActive }: BookmarkProps): JSX.Element {
+function BookmarkButton({
+  pageType,
+  id,
+  isActive,
+}: BookmarkProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [isFavorite, setIsFavorite] = useState<boolean>(isActive);
+  const iconSize =
+    pageType === FavoritePageType.Offer
+      ? FavoriteIconSize.Large
+      : FavoriteIconSize.Small;
 
   const handleFavoriteClick = () => {
     const changedFavoriteStatus = Number(!isFavorite);
@@ -20,11 +31,20 @@ function BookmarkButton({ id, isActive }: BookmarkProps): JSX.Element {
 
   return (
     <button
-      className="place-card__bookmark-button button"
+      className={cn({
+        button: true,
+        [`${pageType}__bookmark-button`]: true,
+        [`${pageType}__bookmark-button--active`]: isFavorite,
+      })}
       type="button"
       onClick={handleFavoriteClick}
     >
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+      <svg
+        className={cn({
+          [`${pageType}__bookmark-icon`]: true,
+        })}
+        {...iconSize}
+      >
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">To bookmarks</span>

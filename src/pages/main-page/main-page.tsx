@@ -38,14 +38,17 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
     dispatch(fetchOffersAction());
   }, [dispatch, authorizationStatus]);
 
-  const handleCardHover = useCallback((card: Offers | undefined) => {
-    if (card) {
-      const currentOffer = offers.find((offer) => offer.id === card.id);
-      setActiveCard(currentOffer);
-    } else {
-      setActiveCard(undefined);
-    }
-  }, []);
+  const handleCardHover = useCallback(
+    (card: Offers | undefined) => {
+      if (card) {
+        const currentOffer = offers.find((offer) => offer.id === card.id);
+        setActiveCard(currentOffer);
+      } else {
+        setActiveCard(undefined);
+      }
+    },
+    [offers]
+  );
 
   const sortingChange = (newSorting: SortingType) =>
     setActiveSorting(newSorting);

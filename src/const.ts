@@ -19,6 +19,31 @@ export const CityNames: string[] = [
   'Dusseldorf',
 ];
 
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+export enum FavoritePageType {
+  Default = 'place-card',
+  Offer = 'offer',
+}
+
+export const FavoriteIconSize = {
+  Small: { width: 18, height: 19 },
+  Large: { width: 31, height: 33 },
+} as const;
+
 export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
@@ -67,13 +92,4 @@ export enum SortingMap {
   LowToHigh = 'Price: low to high',
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
-}
-
-export enum CityMap {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussele = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
 }

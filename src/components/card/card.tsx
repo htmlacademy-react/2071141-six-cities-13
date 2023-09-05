@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, FavoritePageType } from '../../const';
 import { Offers } from '../../types/offers';
 import { getRatingWidth } from '../../utils/utils';
-import { useAppDispatch } from '../../hooks/index';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type CardProps = {
@@ -21,8 +20,6 @@ function Card({ offer, onCardHover }: CardProps): JSX.Element {
     rating,
     id,
   } = offer;
-  const dispatch = useAppDispatch();
-  const status = Number(!isFavorite);
 
   const handleCardHover = (card?: Offers) => {
     if (onCardHover) {
@@ -62,7 +59,11 @@ function Card({ offer, onCardHover }: CardProps): JSX.Element {
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton id={id} isActive={isFavorite} />
+          <BookmarkButton
+            pageType={FavoritePageType.Default}
+            id={id}
+            isActive={isFavorite}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -4,7 +4,7 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
 import { RequestStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { useAppSelector } from '../../hooks/index';
 import {
   getFavorites,
   getFavoritesFetchingStatus,
@@ -12,7 +12,6 @@ import {
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function FavoritesPage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavorites);
   const favoritesFetchingStaus = useAppSelector(getFavoritesFetchingStatus);
 
