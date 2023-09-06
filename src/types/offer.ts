@@ -1,13 +1,4 @@
-export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
-
-export type City = {
-  name: string;
-  location: Location;
-};
+import { Offers } from './offers';
 
 type Host = {
   name: string;
@@ -15,26 +6,12 @@ type Host = {
   isPro: boolean;
 };
 
-export type Offers = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  city: City;
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  previewImage: string;
-};
-
 type OfferInfo = {
   description: string;
   bedrooms: number;
-  goods: string[];
   host: Host;
   images: string[];
   maxAdults: number;
 };
 
-export type Offer = Offers | OfferInfo;
+export type Offer = Offers & OfferInfo;

@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { Location } from '../../types/offer';
+import { Location } from '../../types/offers';
 import { Map, TileLayer } from 'leaflet';
 import { COPYRIGHT, TITLE_LAYER } from '../../const';
 

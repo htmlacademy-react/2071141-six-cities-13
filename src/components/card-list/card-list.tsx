@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
+import { sorting } from '../../utils/sorting';
 import Card from '../card/card';
 
 type CardListProps = {
+  activeSorting: string;
   offers: Offers[];
+  onCardHover?: (offer: Offers | undefined) => void;
 };
 
-function CardList({ offers }: CardListProps): JSX.Element {
-  const [, setActiveCard] = useState('');
+function CardList({
+  activeSorting,
+  offers,
+  onCardHover,
+}: CardListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => (
-        <Card
-          key={offer.id}
-          offer={offer}
-          onCardHover={() => setActiveCard(offer.id)}
-          onCardLeave={() => setActiveCard('')}
-        />
+      {sorting[activeSorting](offers).map((offer) => (
+        <Card key={offer.id} offer={offer} onCardHover={onCardHover} />
       ))}
     </div>
   );

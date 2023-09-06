@@ -11,38 +11,33 @@ import { useAppSelector } from '../../hooks/index';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  //const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
 
-  if (
-    authorizationStatus === AuthorizationStatus.Uknown ||
-    isOffersDataLoading
-  ) {
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
   }
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+          <Route
+            path={AppRoute.Root}
+            element={<MainPage authorizationStatus={authorizationStatus} />}
+          />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={authorizationStatus}>
-                <FavoritesPage offers={offers} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage offers={offers} />}
-          />
+          <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </HistoryRouter>

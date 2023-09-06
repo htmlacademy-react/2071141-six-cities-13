@@ -3,14 +3,12 @@ import FavoriteList from '../../components/favorite-list/favorite-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks/index';
+import { getFavorites } from '../../store/favorites-data/favorites-data.selectors';
 
-type FavoritesPageProps = {
-  offers: Offers[];
-};
+function FavoritesPage(): JSX.Element {
+  const favorites = useAppSelector(getFavorites);
 
-function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
-  const favorites = offers.filter((offer) => offer.isFavorite);
   return (
     <div className="page">
       <header className="header">

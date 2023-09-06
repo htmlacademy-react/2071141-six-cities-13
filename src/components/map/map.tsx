@@ -1,7 +1,7 @@
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { Location, Offers } from '../../types/offer';
+import { Offers } from '../../types/offers';
 import useMap from '../../hooks/useMap/use-map';
 
 type IconConfig = {
@@ -14,9 +14,9 @@ type IconConfig = {
 
 type MapProps = {
   block: string;
-  location: Location;
+
   offers: Offers[];
-  specialOfferId: Offers['id'] | null;
+  specialOffer: Offers | undefined;
 };
 
 const defaultIconConfig: IconConfig = {
@@ -43,12 +43,8 @@ function createIcon(config: IconConfig) {
   });
 }
 
-function Map({
-  block,
-  location,
-  offers,
-  specialOfferId,
-}: MapProps): JSX.Element {
+function Map({ block, offers, specialOffer }: MapProps): JSX.Element {
+  const location = offers[0].city.location;
   const mapRef = useRef(null);
   const map = useMap({ mapRef, location });
 
@@ -70,7 +66,7 @@ function Map({
 
         marker
           .setIcon(
-            offer.id === specialOfferId
+            offer.id === specialOffer?.id
               ? createIcon(activeIconConfig)
               : createIcon(defaultIconConfig)
           )
@@ -80,7 +76,7 @@ function Map({
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, specialOfferId]);
+  }, [map, offers, specialOffer?.id]);
 
   return (
     <section

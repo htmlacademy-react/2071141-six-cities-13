@@ -1,5 +1,13 @@
-import { ChangeEvent, Fragment, useState } from 'react';
-import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import {
+  MAX_COMMENT_LENGTH,
+  MIN_COMMENT_LENGTH,
+  RequestStatus,
+} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { getCommentFetchingStatus } from '../../store/coments-data/comments-data.selectors';
+import { addCommentAction } from '../../store/api-actions';
+import { Offer } from '../../types/offer';
 
 const ratingMap = {
   '5': 'perfect',
@@ -9,7 +17,14 @@ const ratingMap = {
   '1': 'terribly',
 };
 
-function ReviewForm(): JSX.Element {
+type CommentFormProps = {
+  id: Offer['id'];
+};
+
+function CommentForm({ id }: CommentFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const commentsFetchingStatus = useAppSelector(getCommentFetchingStatus);
+
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
   const isValid =
@@ -25,8 +40,29 @@ function ReviewForm(): JSX.Element {
     setRating(evt.target.value);
   }
 
+  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    const commentData = {
+      rating: Number(rating),
+      comment: comment,
+    };
+    dispatch(addCommentAction({ commentData, offerId: id }));
+  }
+
+  useEffect(() => {
+    if (commentsFetchingStatus === RequestStatus.Success) {
+      setComment('');
+      setRating('');
+    }
+  }, [commentsFetchingStatus]);
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleFormSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -88,4 +124,4 @@ function ReviewForm(): JSX.Element {
   );
 }
 
-export default ReviewForm;
+export default CommentForm;

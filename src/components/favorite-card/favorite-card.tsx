@@ -1,11 +1,22 @@
-import { Offers } from '../../types/offer';
+import { FavoritePageType } from '../../const';
+import { Offers } from '../../types/offers';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type FavoriteCardProps = {
   offer: Offers;
 };
 
 function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
-  const { title, type, price, previewImage, isPremium, rating } = offer;
+  const {
+    id,
+    title,
+    type,
+    price,
+    previewImage,
+    isPremium,
+    isFavorite,
+    rating,
+  } = offer;
 
   return (
     <article className="favorites__card place-card">
@@ -31,15 +42,11 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton
+            pageType={FavoritePageType.Default}
+            id={id}
+            isActive={isFavorite}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

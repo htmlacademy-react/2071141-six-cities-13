@@ -1,22 +1,61 @@
+import { useCallback, useEffect, useState } from 'react';
 import CardList from '../../components/card-list/card-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import UserInfo from '../../components/user-info/user-info';
-import { useAppSelector } from '../../hooks/index';
-import { Offers } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { Offers } from '../../types/offers';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { SortingType } from '../../types/sorting';
+import Sorting from '../../components/sorting/sorting';
+import { AuthorizationStatus, RequestStatus } from '../../const';
+import SignIn from '../../components/sign-in/sing-in';
+import {
+  getActiveCity,
+  getOffers,
+  getOffersFetchingStatus,
+} from '../../store/offers-data/offers-data.selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type MainPageProps = {
-  offers: Offers[];
-  cities: string[];
+  authorizationStatus: AuthorizationStatus;
 };
 
-function MainPage({ offers, cities }: MainPageProps): JSX.Element {
-  const city = useAppSelector((store) => store.city);
+function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffers);
+  const offersFetchingStatus = useAppSelector(getOffersFetchingStatus);
   const currentOffers: Offers[] = offers.filter(
-    (offer) => offer.city.name === city
+    (offer) => offer.city.name === activeCity
   );
+  const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
+  const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch, authorizationStatus]);
+
+  const handleCardHover = useCallback(
+    (card: Offers | undefined) => {
+      if (card) {
+        const currentOffer = offers.find((offer) => offer.id === card.id);
+        setActiveCard(currentOffer);
+      } else {
+        setActiveCard(undefined);
+      }
+    },
+    [offers]
+  );
+
+  const sortingChange = (newSorting: SortingType) =>
+    setActiveSorting(newSorting);
+
+  if (offersFetchingStatus === RequestStatus.Pending) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -24,14 +63,18 @@ function MainPage({ offers, cities }: MainPageProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <Logo />
-            <UserInfo />
+            {authorizationStatus === AuthorizationStatus.Auth ? (
+              <UserInfo />
+            ) : (
+              <SignIn />
+            )}
           </div>
         </div>
       </header>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CitiesList offers={offers} cities={cities} />
+          <CitiesList activeCity={activeCity} />
         </section>
       </div>
       <div className="cities">
@@ -39,42 +82,20 @@ function MainPage({ offers, cities }: MainPageProps): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {currentOffers.length} places to stay in {city}
+              {currentOffers.length} places to stay in {activeCity}
             </b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                <svg className="places__sorting-arrow" width={7} height={4}>
-                  <use xlinkHref="#icon-arrow-select" />
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options">
-                <li
-                  className="places__option places__option--active"
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: low to high
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: high to low
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Top rated first
-                </li>
-              </ul>
-            </form>
-            <CardList offers={currentOffers} />
+            <Sorting activeSorting={activeSorting} onChange={sortingChange} />
+            <CardList
+              activeSorting={activeSorting}
+              offers={currentOffers}
+              onCardHover={handleCardHover}
+            />
           </section>
           {currentOffers.length ? (
             <Map
               block="cities"
               offers={currentOffers}
-              location={currentOffers[0].city.location}
-              specialOfferId={currentOffers[0].id}
+              specialOffer={activeCard}
             />
           ) : (
             <NotFoundPage />

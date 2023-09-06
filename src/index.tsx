@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from './components/app/app';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
-import { CITIES } from './const';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -19,7 +18,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App cities={CITIES} />
+      <App />
     </Provider>
   </React.StrictMode>
 );
