@@ -8,7 +8,7 @@ import {
   fetchOfferAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { RequestStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Card from '../../components/card/card';
 import Map from '../../components/map/map';
@@ -22,14 +22,16 @@ import {
   getOffer,
   getOfferFetchingStatus,
 } from '../../store/offer-data/offer-data.selector';
+import { getAuthorizationStatus } from '../../store/user-data/user-data.selectors';
+import SignIn from '../../components/sign-in/sing-in';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offer = useAppSelector(getOffer);
   const nearPlaces = useAppSelector(getNearPlaces).slice(0, 3);
-  //const favorites = useAppSelector((state) => state.favorites);
 
   const offerFetchingStatus = useAppSelector(getOfferFetchingStatus);
   const nearPlacesFetchindStatus = useAppSelector(getNearPlacesFetchingStatus);
@@ -57,7 +59,11 @@ function OfferPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <Logo />
-            <UserInfo />
+            {authorizationStatus === AuthorizationStatus.Auth ? (
+              <UserInfo />
+            ) : (
+              <SignIn />
+            )}
           </div>
         </div>
       </header>

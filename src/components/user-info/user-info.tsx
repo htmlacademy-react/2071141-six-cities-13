@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { logoutAction } from '../../store/api-actions';
+import { fetchFavoritesAction, logoutAction } from '../../store/api-actions';
 import { getFavorites } from '../../store/favorites-data/favorites-data.selectors';
 import { getUser } from '../../store/user-data/user-data.selectors';
+import { useEffect } from 'react';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUser);
 
   const favorites = useAppSelector(getFavorites);
+  const handleFavoritesClick = () => {
+    dispatch(fetchFavoritesAction());
+  };
 
   return (
     <nav className="header__nav">
@@ -18,6 +22,7 @@ function UserInfo(): JSX.Element {
           <Link
             className="header__nav-link header__nav-link--profile"
             to={AppRoute.Favorites}
+            onClick={handleFavoritesClick}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">{user?.email}</span>

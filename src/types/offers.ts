@@ -22,3 +22,8 @@ export type Offers = {
   title: string;
   type: string;
 };
+
+export type FavoriteData = {
+  id: Offers['id'];
+  status: 0 | 1;
+};

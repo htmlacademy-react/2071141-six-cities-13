@@ -4,6 +4,7 @@ import { Offers } from '../../types/offers';
 import { changeFavoritesAction } from '../../store/api-actions';
 import { FavoritePageType, FavoriteIconSize } from '../../const';
 import cn from 'classnames';
+import { FavoriteData } from '../../types/offers';
 
 type BookmarkProps = {
   pageType: FavoritePageType;
@@ -24,7 +25,7 @@ function BookmarkButton({
       : FavoriteIconSize.Small;
 
   const handleFavoriteClick = () => {
-    const changedFavoriteStatus = Number(!isFavorite);
+    const changedFavoriteStatus = Number(!isFavorite) as FavoriteData['status'];
     setIsFavorite(!isFavorite);
     dispatch(changeFavoritesAction({ id, status: changedFavoriteStatus }));
   };

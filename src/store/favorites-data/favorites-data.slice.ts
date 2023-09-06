@@ -22,7 +22,7 @@ export const favoritesData = createSlice({
         state.favorites = action.payload;
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
-        state.fetchingStatus = RequestStatus.Error;
+        state.fetchingStatus = RequestStatus.Rejected;
       })
       .addCase(changeFavoritesAction.fulfilled, (state, action) => {
         if (action.payload.isFavorite) {

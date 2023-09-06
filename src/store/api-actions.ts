@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { Offers } from '../types/offers';
+import { FavoriteData, Offers } from '../types/offers';
 import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../const';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
@@ -32,26 +32,29 @@ export const fetchOfferAction = createAsyncThunk<Offer, Offer['id'], Extra>(
   }
 );
 
-export const fetchFavoritesAction = createAsyncThunk<Offers[], string, Extra>(
-  `${NameSpace.Favorites}/fetchFavorites`,
-  async (_arg, { extra: api }) => {
-    const { data } = await api.get<Offers[]>(APIRoute.Favorite);
-    return data;
-  }
-);
+export const fetchFavoritesAction = createAsyncThunk<
+  Offers[],
+  undefined,
+  Extra
+>(`${NameSpace.Favorites}/fetchFavorites`, async (_arg, { extra: api }) => {
+  const { data } = await api.get<Offers[]>(APIRoute.Favorite);
+  return data;
+});
+
 export const changeFavoritesAction = createAsyncThunk<
-  Offer,
-  { id: string; status: number },
+  Offers,
+  FavoriteData,
   Extra & { state: State }
 >(
   `${NameSpace.Favorites}/changeFavorites`,
   async ({ id, status }, { extra: api, getState, dispatch }) => {
     const authorizationStatus = getState()[NameSpace.User].authorizationStatus;
+
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Login));
       return null;
     }
-    const { data } = await api.post<Offer>(
+    const { data } = await api.post<Offers[]>(
       `${APIRoute.Favorite}/${id}/${status}`
     );
     return data;
