@@ -11,9 +11,12 @@ function UserInfo(): JSX.Element {
   const user = useAppSelector(getUser);
 
   const favorites = useAppSelector(getFavorites);
-  const handleFavoritesClick = () => {
-    dispatch(fetchFavoritesAction());
-  };
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, user]);
 
   return (
     <nav className="header__nav">
@@ -22,7 +25,6 @@ function UserInfo(): JSX.Element {
           <Link
             className="header__nav-link header__nav-link--profile"
             to={AppRoute.Favorites}
-            onClick={handleFavoritesClick}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">{user?.email}</span>
